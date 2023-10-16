@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import Logo from "../../components/common/Logo/Logo";
 import Textfield from "../../components/common/Textfield/Textfield";
@@ -6,18 +7,36 @@ import { StyleContainerCadastro } from "./Cadastro.styles";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
 import cadastro from "/cadastro.svg";
+import { postUsuarios } from "../../service/api";
 
 const Cadastro = () => {
 
   const [nome, setNome] = useState('')
   const [sobrenome, setSobrenome] = useState('')
+  const [email, setEmail] = useState('')
+  const [senha, setSenha] = useState('')
+  const [confirmarSenha, setConfirmarSenha] = useState('')
 
 
   const navigate = useNavigate()
 
-  const handleCadastro = () => {
+  const handleCadastro = async (e) => {
+    e.preventDefault()
+    const body = {
+      email,
+      nome,
+      sobrenome
+    }
 
-    console.log('nome:', nome, '\nsobrenome:', sobrenome)
+    if (senha === confirmarSenha) {
+      const response = await postUsuarios(body, senha)
+      localStorage.setItem('id', response.data.id)
+      localStorage.setItem('nome', response.data.nome)
+      console.log(response)
+      navigate('/dashboard')
+    } else {
+      console.log('as senhas precisam ser iguais');
+    }
   }
   return (
     <StyleContainerCadastro>
@@ -45,15 +64,17 @@ const Cadastro = () => {
             onChange={(e) => setNome(e)}
 
           />
-          {/* <Textfield
+          <Textfield
             nome="sobrenome"
             label="Sobrenome"
             type="text"
             required
             placeholder="Silva"
+            value={sobrenome}
+            onChange={(e) => setSobrenome(e)}
 
-          /> */}
-          <input type="text" value={sobrenome} onChange={(evento) => setSobrenome(evento.target.value)} />
+          />
+          {/* <input type="text" value={sobrenome} onChange={(evento) => setSobrenome(evento.target.value)} /> */}
         </div>
         <Textfield
           nome="email"
@@ -61,7 +82,8 @@ const Cadastro = () => {
           type="email"
           required
           placeholder="mariasilva@gmail.com"
-
+          value={email}
+          onChange={(e) => setEmail(e)}
         />
         <Textfield
           nome="senha"
@@ -69,7 +91,8 @@ const Cadastro = () => {
           type="password"
           required
           placeholder="●●●●●●●"
-
+          value={senha}
+          onChange={(e) => setSenha(e)}
         />
         <Textfield
           nome="confirmaSenha"
@@ -77,6 +100,8 @@ const Cadastro = () => {
           type="password"
           required
           placeholder="●●●●●●●"
+          value={confirmarSenha}
+          onChange={(e) => setConfirmarSenha(e)}
         />
 
         <p>

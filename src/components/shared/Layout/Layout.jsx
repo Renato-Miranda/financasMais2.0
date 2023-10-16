@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
+
 import Logo from '../../common/Logo/Logo'
 import { Link } from 'react-router-dom'
 import { StylesLayout } from './Layout.styles'
@@ -13,10 +14,10 @@ const Layout = ({ children }) => {
             <Link to='/dashboard'>Dashboard</Link>
           </li>
           <li>
-            <Link to='/transacoes/entradas'>Entradas</Link>
+            <Link to='/transacoes/entrada'>Entradas</Link>
           </li>
           <li>
-            <Link to='/transacoes/saidas'>Saidas</Link>
+            <Link to='/transacoes/saída'>Saidas</Link>
           </li>
         </ul>
       </aside>
