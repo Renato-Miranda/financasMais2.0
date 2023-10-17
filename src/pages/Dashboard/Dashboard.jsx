@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react'
 import Layout from '../../components/shared/Layout/Layout'
 import Transacao from '../../components/views/Dashboard/Transacao/Transacao'
 
 const Dashboard = () => {
+  const [contador, setContador] = useState(0)
 
-  const transacao = {
-    id: 'dasdasdasd',
-    data: '11/10/2023',
-    categoria: 'Salario',
-    valor: 10000,
-    tipo: 'saida'
-  }
+  useEffect(() => {
+    console.log("carregou")
+  }, [
+
+  ])
+
+
 
 
 
@@ -18,11 +20,6 @@ const Dashboard = () => {
     <div>
       <Layout >
         <Transacao
-          id={transacao.id}
-          data={transacao.data}
-          categoria={transacao.categoria}
-          valor={transacao.valor}
-          tipo={transacao.tipo}
         />
       </Layout>
 
